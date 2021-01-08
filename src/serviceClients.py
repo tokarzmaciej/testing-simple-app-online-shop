@@ -5,5 +5,5 @@ class Client:
             raise TypeError("Bad type name")
         if type(surname) != str:
             raise TypeError("Bad type surname")
-        else:
+        if type(email) != str:
             raise TypeError("Bad type email")
