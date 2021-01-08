@@ -25,5 +25,5 @@ class Client:
             return self.ClientStorage.postClient(name, surname, email)
 
     def deleteClient(self, id_client):
+        if type(id_client) != int:
             raise TypeError("Bad type id client")
-
