@@ -1,5 +1,6 @@
 from unittest.mock import *
 from unittest import TestCase, main
+from assertpy import assert_that
 from src.serviceClients import Client
 from src.dataClients import ClientsData
 from src.spyValidation import SpyValidationEmail
@@ -61,8 +62,27 @@ class testAddClient(TestCase):
         self.assertRaisesRegex(Exception, "This client exist", result, "Jan", "Kowalski",
                                "jankowalski@example.com")
 
+    def test_add_client_positive(self):
+        self.temp.ClientStorage = FakeAddClient(self.clients)
+        self.temp.ClientStorage.postClient = Mock()
+        self.temp.ClientStorage.postClient.return_value = [
+            {"id": len(self.clients), "name": 'Szymon', "surname": 'Polak', "email": 'szymonpolak@example.com'}]
+
+        result = self.temp.addClient("Szymon", "Polak", "szymonpolak@example.com")
+        assert_that(result) \
+            .contains(
+            {"id": len(self.clients), "name": 'Szymon', "surname": 'Polak', "email": 'szymonpolak@example.com'})
+
     def tearDown(self):
         self.temp = None
+
+
+class FakeAddClient(object):
+    def __init__(self, customers):
+        self.customers = customers
+
+    def getAllClients(self):
+        return self.customers
 
 
 if __name__ == '__main__':
