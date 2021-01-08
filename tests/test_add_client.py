@@ -37,11 +37,16 @@ class testAddClient(TestCase):
         validation = SpyValidationEmail(status=True)
         self.temp.validation = validation
 
+        self.temp.addClient("Adrian", "Kowalski", "adrianKowalski@example.com")
+        self.assertIn("adrianKowalski@example.com", validation.check_email)
+
+    def test_add_client_already_exist(self):
         self.temp.ClientStorage.getAllClients = MagicMock()
         self.temp.ClientStorage.getAllClients.return_value = self.clients
 
-        self.temp.addClient("Adrian", "Kowalski", "adrianKowalski@example.com")
-        self.assertIn("adrianKowalski@example.com", validation.check_email)
+        result = self.temp.addClient
+        self.assertRaisesRegex(Exception, "This client exist", result, "Jan", "Kowalski",
+                               "jankowalski@example.com")
 
     def tearDown(self):
         self.temp = None
