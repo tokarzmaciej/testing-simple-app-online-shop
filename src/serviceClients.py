@@ -9,14 +9,19 @@ class Client:
 
     def addClient(self, name, surname, email):
         clients = self.ClientStorage.getAllClients()
+
         if type(name) != str:
             raise TypeError("Bad type name")
+
         if type(surname) != str:
             raise TypeError("Bad type surname")
+
         if type(email) != str:
             raise TypeError("Bad type email")
+
         if not self.validation.validEmail(email):
             raise ValueError("Bad value email")
+
         if list(filter(lambda client:
                        client["name"] == name and client["surname"] == surname
                        and client["email"] == email, clients)):
@@ -26,8 +31,10 @@ class Client:
 
     def deleteClient(self, id_client):
         clients = self.ClientStorage.getAllClients()
+
         if type(id_client) != int:
             raise TypeError("Bad type id client")
+
         if len(list(filter(lambda client: client["id"] == id_client, clients))) != 1:
             raise Exception("This client not exist in data base")
         else:
@@ -37,20 +44,24 @@ class Client:
         clients = self.ClientStorage.getAllClients()
         if type(id_client) != int:
             raise TypeError("Bad type id client")
+
         if type(new_name) != str and new_name is not None:
             raise TypeError("Bad type new name")
+
         if type(new_surname) != str and new_surname is not None:
             raise TypeError("Bad type new surname")
+
         if type(new_email) != str and new_email is not None:
             raise TypeError("Bad type new email")
+
         if not self.validation.validEmail(new_email):
             raise ValueError("Bad value email")
+
         if list(filter(lambda client: client["email"] == new_email, clients)):
             raise Exception("This email exists")
-        if len(list(filter(lambda client: client["id"] == id_client, clients))) == 1:
 
+        if len(list(filter(lambda client: client["id"] == id_client, clients))) == 1:
             return self.ClientStorage.patchClient(id_client, new_name, new_surname,
                                                   new_email)
-
         else:
             raise Exception("This client not exist in data base")
