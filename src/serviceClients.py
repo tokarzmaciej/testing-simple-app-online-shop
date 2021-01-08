@@ -1,4 +1,4 @@
 class Client:
 
     def addClient(self, name, surname, email):
-        pass
+        raise TypeError("Bad type name")
