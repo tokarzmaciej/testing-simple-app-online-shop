@@ -14,5 +14,5 @@ class Client:
             raise TypeError("Bad type surname")
         if type(email) != str:
             raise TypeError("Bad type email")
-        else:
+        if not self.validation.validEmail(email):
             raise ValueError("Bad value email")
