@@ -150,6 +150,16 @@ class testEditClient(TestCase):
             "email": "kowalskijan@example.com"
         }])
 
+    def test_edit_email_client_positive_verification_mock(self):
+        self.temp.ClientStorage.getAllClients = MagicMock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.ClientStorage.patchClient = MagicMock()
+        self.temp.ClientStorage.patchClient.side_effect = self.patchClient
+
+        self.temp.editClient(1, None, None, "kowalskijan@example.com")
+        self.temp.ClientStorage.patchClient.assert_called_once_with(1, None, None, "kowalskijan@example.com")
+
     def tearDown(self):
         self.temp = None
 
