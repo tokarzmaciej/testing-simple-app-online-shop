@@ -44,4 +44,5 @@ class Client:
             raise TypeError("Bad type new email")
         if not self.validation.validEmail(new_email):
             raise ValueError("Bad value email")
-        return self.ClientStorage.getAllClients()
+        if list(filter(lambda client: client["email"] == new_email, self.ClientStorage.getAllClients())):
+            raise Exception("This email exists")
