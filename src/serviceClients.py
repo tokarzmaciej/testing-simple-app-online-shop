@@ -36,3 +36,6 @@ class Client:
     def editClient(self, id_client, new_name=None, new_surname=None, new_email=None):
         if type(id_client) != int:
             raise TypeError("Bad type id client")
+        else:
+            raise TypeError("Bad type new name")
+
