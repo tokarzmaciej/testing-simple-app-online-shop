@@ -27,6 +27,5 @@ class Client:
     def deleteClient(self, id_client):
         if type(id_client) != int:
             raise TypeError("Bad type id client")
-        else:
+        if len(list(filter(lambda client: client["id"] == id_client, self.ClientStorage.getAllClients()))) != 1:
             raise Exception("This client not exist in data base")
-
