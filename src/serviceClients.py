@@ -47,3 +47,5 @@ class Client:
             raise ValueError("Bad value email")
         if list(filter(lambda client: client["email"] == new_email, clients)):
             raise Exception("This email exists")
+        if len(list(filter(lambda client: client["id"] == id_client, clients))) != 1:
+            raise Exception("This client not exist in data base")
