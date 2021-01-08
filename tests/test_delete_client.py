@@ -23,6 +23,23 @@ class testDeleteClient(TestCase):
         result = self.temp.deleteClient
         self.assertRaisesRegex(Exception, "This client not exist in data base", result, 20)
 
+    def test_delete_client_positive(self):
+        self.temp.ClientStorage = FakeDeleteClient()
+
+        self.temp.ClientStorage.getAllClients = Mock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        result = self.temp.deleteClient(2)
+        self.assertEqual(result, "Deleted client id:2")
+
+
+class FakeDeleteClient:
+    def __init__(self):
+        self.deleted = "Deleted client"
+
+    def delClient(self, id_client):
+        return self.deleted + " id:" + str(id_client)
+
 
 if __name__ == '__main__':
     main()
