@@ -112,6 +112,19 @@ class testEditClient(TestCase):
         self.temp.editClient(5, "Agnieszka")
         self.temp.ClientStorage.patchClient.assert_called_with(5, "Agnieszka", None, None)
 
+    def test_edit_surname_client_positive(self):
+        self.temp.ClientStorage.getAllClients = MagicMock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.ClientStorage.patchClient = MagicMock()
+        self.temp.ClientStorage.patchClient.side_effect = self.patchClient
+
+        result = self.temp.editClient(5, None, "Kowalczyk")
+        self.assertDictEqual(result[0], {
+            "id": 5, "name": 'Monika',
+            "surname": 'Kowalczyk',
+            "email": 'monikajankowska@example.com'})
+
     def tearDown(self):
         self.temp = None
 
