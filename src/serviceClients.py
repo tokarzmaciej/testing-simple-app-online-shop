@@ -8,6 +8,7 @@ class Client:
         self.validation = SpyValidationEmail()
 
     def addClient(self, name, surname, email):
+        clients = self.ClientStorage.getAllClients()
         if type(name) != str:
             raise TypeError("Bad type name")
         if type(surname) != str:
@@ -18,5 +19,5 @@ class Client:
             raise ValueError("Bad value email")
         if list(filter(lambda client:
                        client["name"] == name and client["surname"] == surname and client["email"] == email,
-                       self.ClientStorage.getAllClients())):
+                       clients)):
             raise Exception("This client exist")
