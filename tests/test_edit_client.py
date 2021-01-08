@@ -59,13 +59,20 @@ class testEditClient(TestCase):
         self.temp.ClientStorage.getAllClients.assert_called_once()
 
     def test_edit_client_new_email_exists(self):
-
         self.temp.ClientStorage.getAllClients = Mock()
         self.temp.ClientStorage.getAllClients.return_value = self.clients
 
         result = self.temp.editClient
         self.assertRaisesRegex(Exception, "This email exists", result, 5, None, None,
                                "beatalewandowska@example.com")
+
+    def test_edit_client_client_not_exist(self):
+        self.temp.ClientStorage.getAllClients = Mock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        result = self.temp.editClient
+        self.assertRaisesRegex(Exception, "This client not exist in data base", result, 21, "Bartek", None,
+                               None)
 
     def tearDown(self):
         self.temp = None
