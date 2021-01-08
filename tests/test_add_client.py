@@ -17,7 +17,7 @@ class testAddClient(TestCase):
 
     def test_add_client_bad_email(self):
         self.temp.addClient = Mock()
-        self.temp.addClient.side_effect = TypeError("Bad type emai")
+        self.temp.addClient.side_effect = TypeError("Bad type email")
 
         result = self.temp.addClient
         self.assertRaisesRegex(TypeError, "Bad type email", result, "Robert", "Kot", None)
