@@ -32,6 +32,14 @@ class testDeleteClient(TestCase):
         result = self.temp.deleteClient(2)
         self.assertEqual(result, "Deleted client id:2")
 
+    def test_delete_client_positive_verification_mock(self):
+        self.temp.ClientStorage = FakeDeleteClient()
+        self.temp.ClientStorage.getAllClients = Mock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.deleteClient(2)
+        self.temp.ClientStorage.getAllClients.assert_called_once()
+
 
 class FakeDeleteClient:
     def __init__(self):
