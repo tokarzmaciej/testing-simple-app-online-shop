@@ -200,6 +200,16 @@ class testEditClient(TestCase):
         assert_that(result) \
             .is_length(1)
 
+    def test_edit_all_elements_client_positive_verification_mock(self):
+        self.temp.ClientStorage.getAllClients = MagicMock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.ClientStorage.patchClient = MagicMock()
+        self.temp.ClientStorage.patchClient.side_effect = self.patchClient
+
+        self.temp.editClient(2, "Tomasz", "Kubacki", "tomaszkubacki@example.com")
+        self.temp.ClientStorage.patchClient.assert_called_with(2, "Tomasz", "Kubacki", "tomaszkubacki@example.com")
+
     def tearDown(self):
         self.temp = None
 
