@@ -18,9 +18,8 @@ class Client:
         if not self.validation.validEmail(email):
             raise ValueError("Bad value email")
         if list(filter(lambda client:
-                       client["name"] == name and client["surname"] == surname and client["email"] == email,
-                       clients)):
+                       client["name"] == name and client["surname"] == surname
+                       and client["email"] == email, clients)):
             raise Exception("This client exist")
         else:
             return self.ClientStorage.postClient(name, surname, email)
-
