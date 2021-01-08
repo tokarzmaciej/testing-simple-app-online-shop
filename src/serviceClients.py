@@ -21,3 +21,6 @@ class Client:
                        client["name"] == name and client["surname"] == surname and client["email"] == email,
                        clients)):
             raise Exception("This client exist")
+        else:
+            return self.ClientStorage.postClient(name, surname, email)
+
