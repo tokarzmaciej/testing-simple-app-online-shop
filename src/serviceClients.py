@@ -16,3 +16,7 @@ class Client:
             raise TypeError("Bad type email")
         if not self.validation.validEmail(email):
             raise ValueError("Bad value email")
+        if list(filter(lambda client:
+                       client["name"] == name and client["surname"] == surname and client["email"] == email,
+                       self.ClientStorage.getAllClients())):
+            raise Exception("This client exist")
