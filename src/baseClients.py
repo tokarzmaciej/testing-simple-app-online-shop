@@ -5,3 +5,6 @@ class ClientStorage:
 
     def postClient(self, name, surname, email):
         pass
+
+    def delClient(self, id_client):
+        pass
