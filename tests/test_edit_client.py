@@ -22,6 +22,13 @@ class testEditClient(TestCase):
         result = self.temp.editClient
         self.assertRaisesRegex(TypeError, "Bad type new surname", result, 1, "Adam", 1234, str)
 
+    def test_edit_client_bad_new_email(self):
+        self.temp.editClient = Mock()
+        self.temp.editClient.side_effect = TypeError("Bad type new email")
+
+        result = self.temp.editClient
+        self.assertRaisesRegex(TypeError, "Bad type new email", result, 4, "Robert", "Kot", 1.2345)
+
     def tearDown(self):
         self.temp = None
 
