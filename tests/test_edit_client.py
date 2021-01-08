@@ -1,6 +1,6 @@
 from unittest.mock import *
 from unittest import TestCase, main
-from src.serviceClients import Client
+from src.serviceClients import Client, SpyValidationEmail
 from src.dataClients import ClientsData
 
 
@@ -28,6 +28,14 @@ class testEditClient(TestCase):
 
         result = self.temp.editClient
         self.assertRaisesRegex(TypeError, "Bad type new email", result, 4, "Robert", "Kot", 1.2345)
+
+    def test_edit_client_no_validation_new_email(self):
+        validation = SpyValidationEmail(status=False)
+        self.temp.validation = validation
+
+        result = self.temp.editClient
+        self.assertRaisesRegex(ValueError, "Bad value email", result, 4, "Piotr", "Nowick",
+                               "piotr123example.com")
 
     def tearDown(self):
         self.temp = None
