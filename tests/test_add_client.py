@@ -73,6 +73,15 @@ class testAddClient(TestCase):
             .contains(
             {"id": len(self.clients), "name": 'Szymon', "surname": 'Polak', "email": 'szymonpolak@example.com'})
 
+    def test_add_client_positive_verification_mock(self):
+        self.temp.ClientStorage = FakeAddClient(self.clients)
+        self.temp.ClientStorage.postClient = Mock()
+        self.temp.ClientStorage.postClient.return_value = [
+            {"id": len(self.clients), "name": 'Szymon', "surname": 'Polak', "email": 'szymonpolak@example.com'}]
+
+        self.temp.addClient("Szymon", "Polak", "szymonpolak@example.com")
+        self.temp.ClientStorage.postClient.assert_called_with("Szymon", "Polak", "szymonpolak@example.com")
+
     def tearDown(self):
         self.temp = None
 
