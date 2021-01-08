@@ -27,3 +27,6 @@ class Client:
     def deleteClient(self, id_client):
         if type(id_client) != int:
             raise TypeError("Bad type id client")
+        else:
+            raise Exception("This client not exist in data base")
+
