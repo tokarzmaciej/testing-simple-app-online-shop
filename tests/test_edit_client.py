@@ -8,6 +8,7 @@ class testEditClient(TestCase):
 
     def setUp(self):
         self.temp = Client()
+        self.clients = ClientsData().clients
 
     # dummy
     def test_edit_client_bad_id(self):
@@ -36,6 +37,16 @@ class testEditClient(TestCase):
         result = self.temp.editClient
         self.assertRaisesRegex(ValueError, "Bad value email", result, 4, "Piotr", "Nowick",
                                "piotr123example.com")
+
+    def test_edit_client_good_validation_new_email(self):
+        validation = SpyValidationEmail(status=True)
+        self.temp.validation = validation
+
+        self.temp.ClientStorage.getAllClients = MagicMock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.editClient(4, "Piotr", "Nowick", "piotr123@example.com")
+        self.assertIn("piotr123@example.com", validation.check_email)
 
     def tearDown(self):
         self.temp = None
