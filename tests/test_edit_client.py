@@ -1,10 +1,20 @@
 from unittest.mock import *
 from unittest import TestCase, main
+from assertpy import assert_that
 from src.serviceClients import Client, SpyValidationEmail
 from src.dataClients import ClientsData
 
 
 class testEditClient(TestCase):
+    def patchClient(self, id_customer, new_name, new_surname, new_email):
+        update_customer = list(filter(lambda customer: customer["id"] == id_customer, self.clients))
+        if new_name is not None:
+            update_customer[0]["name"] = new_name
+        if new_surname is not None:
+            update_customer[0]["surname"] = new_surname
+        if new_email is not None:
+            update_customer[0]["email"] = new_email
+        return update_customer
 
     def setUp(self):
         self.temp = Client()
@@ -73,6 +83,24 @@ class testEditClient(TestCase):
         result = self.temp.editClient
         self.assertRaisesRegex(Exception, "This client not exist in data base", result, 21, "Bartek", None,
                                None)
+
+    def test_edit_name_client_positive(self):
+        self.temp.ClientStorage.getAllClients = MagicMock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.ClientStorage.patchClient = MagicMock()
+        self.temp.ClientStorage.patchClient.side_effect = self.patchClient
+
+        result = self.temp.editClient(5, "Agnieszka")
+
+        assert_that(result) \
+            .contains(
+            {
+                "id": 5,
+                "name": 'Agnieszka',
+                "surname": 'Jankowska',
+                "email": 'monikajankowska@example.com'
+            })
 
     def tearDown(self):
         self.temp = None
