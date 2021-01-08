@@ -47,5 +47,10 @@ class Client:
             raise ValueError("Bad value email")
         if list(filter(lambda client: client["email"] == new_email, clients)):
             raise Exception("This email exists")
-        if len(list(filter(lambda client: client["id"] == id_client, clients))) != 1:
+        if len(list(filter(lambda client: client["id"] == id_client, clients))) == 1:
+
+            return self.ClientStorage.patchClient(id_client, new_name, new_surname,
+                                                  new_email)
+
+        else:
             raise Exception("This client not exist in data base")
