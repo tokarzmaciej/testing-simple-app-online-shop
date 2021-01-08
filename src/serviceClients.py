@@ -23,3 +23,7 @@ class Client:
             raise Exception("This client exist")
         else:
             return self.ClientStorage.postClient(name, surname, email)
+
+    def deleteClient(self, id_client):
+            pass
+
