@@ -1,12 +1,14 @@
 from unittest.mock import *
 from unittest import TestCase, main
 from src.serviceClients import Client
+from src.dataClients import ClientsData
 from src.spyValidation import SpyValidationEmail
 
 
 class testAddClient(TestCase):
     def setUp(self):
         self.temp = Client()
+        self.clients = ClientsData().clients
 
     def test_add_client_bad_name(self):
         result = self.temp.addClient
@@ -30,6 +32,16 @@ class testAddClient(TestCase):
         result = self.temp.addClient
         self.assertRaisesRegex(ValueError, "Bad value email", result, "Adrian", "Kowalski",
                                "adrianKowalski_example.com")
+
+    def test_add_client_good_validation_email(self):
+        validation = SpyValidationEmail(status=True)
+        self.temp.validation = validation
+
+        self.temp.ClientStorage.getAllClients = MagicMock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.addClient("Adrian", "Kowalski", "adrianKowalski@example.com")
+        self.assertIn("adrianKowalski@example.com", validation.check_email)
 
     def tearDown(self):
         self.temp = None
