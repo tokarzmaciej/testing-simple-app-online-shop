@@ -48,6 +48,16 @@ class testEditClient(TestCase):
         self.temp.editClient(4, "Piotr", "Nowick", "piotr123@example.com")
         self.assertIn("piotr123@example.com", validation.check_email)
 
+    def test_edit_client_good_validation_new_email_verification_mock(self):
+        validation = SpyValidationEmail(status=True)
+        self.temp.validation = validation
+
+        self.temp.ClientStorage.getAllClients = MagicMock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.editClient(4, "Piotr", "Nowick", "piotr123@example.com")
+        self.temp.ClientStorage.getAllClients.assert_called_once()
+
     def tearDown(self):
         self.temp = None
 
