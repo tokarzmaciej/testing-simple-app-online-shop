@@ -14,6 +14,10 @@ class testEditClient(TestCase):
         result = self.temp.editClient
         self.assertRaisesRegex(TypeError, "Bad type id client", result, "Two", str, str, str)
 
+    def test_edit_client_bad_new_name(self):
+        result = self.temp.editClient
+        self.assertRaisesRegex(TypeError, "Bad type new name", result, 4, False, str, str)
+
     def tearDown(self):
         self.temp = None
 
