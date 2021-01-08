@@ -34,6 +34,7 @@ class Client:
             return self.ClientStorage.delClient(id_client)
 
     def editClient(self, id_client, new_name=None, new_surname=None, new_email=None):
+        clients = self.ClientStorage.getAllClients()
         if type(id_client) != int:
             raise TypeError("Bad type id client")
         if type(new_name) != str and new_name is not None:
@@ -44,5 +45,5 @@ class Client:
             raise TypeError("Bad type new email")
         if not self.validation.validEmail(new_email):
             raise ValueError("Bad value email")
-        if list(filter(lambda client: client["email"] == new_email, self.ClientStorage.getAllClients())):
+        if list(filter(lambda client: client["email"] == new_email, clients)):
             raise Exception("This email exists")
