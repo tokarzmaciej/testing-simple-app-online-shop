@@ -34,5 +34,5 @@ class Client:
             return self.ClientStorage.delClient(id_client)
 
     def editClient(self, id_client, new_name=None, new_surname=None, new_email=None):
-        raise TypeError("Bad type id client")
-
+        if type(id_client) != int:
+            raise TypeError("Bad type id client")
