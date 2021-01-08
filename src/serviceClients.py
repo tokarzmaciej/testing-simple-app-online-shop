@@ -40,6 +40,6 @@ class Client:
             raise TypeError("Bad type new name")
         if type(new_surname) != str and new_surname is not None:
             raise TypeError("Bad type new surname")
-        else:
+        if type(new_email) != str and new_email is not None:
             raise TypeError("Bad type new email")
 
