@@ -43,6 +43,16 @@ class testAddClient(TestCase):
         self.temp.addClient("Adrian", "Kowalski", "adrianKowalski@example.com")
         self.assertIn("adrianKowalski@example.com", validation.check_email)
 
+    def test_add_client_good_validation_email_verification_mock(self):
+        validation = SpyValidationEmail(status=True)
+        self.temp.validation = validation
+
+        self.temp.ClientStorage.getAllClients = MagicMock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.addClient("Adrian", "Kowalski", "adrianKowalski@example.com")
+        self.temp.ClientStorage.getAllClients.assert_called_once()
+
     def test_add_client_already_exists(self):
         self.temp.ClientStorage.getAllClients = MagicMock()
         self.temp.ClientStorage.getAllClients.return_value = self.clients
