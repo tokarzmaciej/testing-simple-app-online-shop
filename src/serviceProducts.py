@@ -17,4 +17,5 @@ class Product:
             return self.ProductStorage.postProduct(name, value)
 
     def deleteProduct(self, id_product):
-        pass
+        raise TypeError("Bad type id product")
+
