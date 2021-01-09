@@ -23,8 +23,24 @@ class testDeleteOrder(TestCase):
         result = self.temp.deleteOrder
         self.assertRaisesRegex(Exception, "This order not exist in data base", result, 101)
 
+    def test_delete_order_positive(self):
+        self.temp.OrderStorage = FakeDeleteOrder()
+        self.temp.OrderStorage.getAllOrders = MagicMock()
+        self.temp.OrderStorage.getAllOrders.return_value = self.orders
+
+        result = self.temp.deleteOrder(8)
+        self.assertEqual(result, "Deleted order id:8")
+
     def tearDown(self):
         self.temp = None
+
+
+class FakeDeleteOrder:
+    def __init__(self):
+        self.deleted = "Deleted order"
+
+    def delOrder(self, id_order):
+        return self.deleted + " id:" + str(id_order)
 
 
 if __name__ == '__main__':
