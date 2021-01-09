@@ -48,5 +48,4 @@ class Product:
             raise Exception("This product not exist in data base")
 
     def getProductByName(self, name):
-        pass
-
+        raise TypeError("Bad type name")
