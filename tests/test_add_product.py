@@ -17,7 +17,7 @@ class testAddProduct(TestCase):
 
     @patch.object(Product, 'addProduct')
     def test_add_product_already_exist(self, mock_method):
-        mock_method.side_effect = Exception("This prodct exist")
+        mock_method.side_effect = Exception("This product exist")
 
         result = self.temp.addProduct
         self.assertRaisesRegex(Exception, "This product exist", result, "ball", 50)
