@@ -35,9 +35,12 @@ class Order:
         return self.OrderStorage.postOrder(id_client)
 
     def deleteOrder(self, id_order):
+        orders = self.OrderStorage.getAllOrders()
+
         if type(id_order) != int:
             raise TypeError("Bad type id order")
-        if len(list(filter(lambda order: order["id"] == int(id_order), self.OrderStorage.getAllOrders()))) != 1:
+
+        if len(list(filter(lambda order: order["id"] == int(id_order), orders))) != 1:
             raise Exception("This order not exist in data base")
         else:
             return self.OrderStorage.delOrder(id_order)
