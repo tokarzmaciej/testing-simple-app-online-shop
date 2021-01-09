@@ -10,3 +10,5 @@ class Order:
             raise TypeError("Bad type id")
         if len(list(filter(lambda client: client["id"] == id_client, self.ClientStorage.getAllClients()))) != 1:
             raise Exception("This client not exist in data base")
+        else:
+            raise TypeError("Bad type cart")
