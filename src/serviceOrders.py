@@ -37,3 +37,5 @@ class Order:
     def deleteOrder(self, id_order):
         if type(id_order) != int:
             raise TypeError("Bad type id order")
+        else:
+            raise Exception("This order not exist in data base")
