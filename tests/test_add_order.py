@@ -128,6 +128,24 @@ class testAddOrder(TestCase):
             "id": 9,
             "client_id": 2
         })
+
+    def test_add_order_positive_verification_mock(self):
+        add_order = SpyPostOrder(status=True)
+        self.temp.SpyPostOrder = add_order
+
+        self.temp.ClientStorage.getAllClients = Mock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.ProductStorage.getAllProducts = Mock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.OrderStorage.postOrder = Mock()
+        self.temp.OrderStorage.postOrder.return_value = {
+            "id": 9,
+            "client_id": 2
+        }
+
+        self.temp.addOrder(2, ["sled", "skis"])
         self.temp.OrderStorage.postOrder.assert_called_with(2)
 
     def tearDown(self):
