@@ -94,6 +94,19 @@ class testAddOrder(TestCase):
         assert_that(add_order.post_order_product) \
             .is_length(3)
 
+    def test_add_orderProduct_few_product_positive_verification_mock(self):
+        add_order = SpyPostOrder(status=True)
+        self.temp.SpyPostOrder = add_order
+
+        self.temp.ClientStorage.getAllClients = Mock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.ProductStorage.getAllProducts = MagicMock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.addOrder(4, ["ball", "bike", "racket"])
+        self.temp.ProductStorage.getAllProducts.assert_called_once()
+
     def tearDown(self):
         self.temp = None
 
