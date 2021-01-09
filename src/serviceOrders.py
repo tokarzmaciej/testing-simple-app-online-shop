@@ -1,11 +1,13 @@
 from src.baseClients import ClientStorage
 from src.baseProducts import ProductStorage
+from src.spyPostOrder import SpyPostOrder
 
 
 class Order:
     def __init__(self):
         self.ClientStorage = ClientStorage()
         self.ProductStorage = ProductStorage()
+        self.SpyPostOrder = SpyPostOrder()
 
     def addOrder(self, id_client, cart):
         if type(id_client) != int:
@@ -15,8 +17,11 @@ class Order:
         if type(cart) != list:
             raise TypeError("Bad type cart")
         for element in cart:
-            product_in_base = list(filter(lambda product: product["name"] == element, self.ProductStorage.getAllProducts()))
+            product_in_base = list(
+                filter(lambda product: product["name"] == element, self.ProductStorage.getAllProducts()))
             if not product_in_base:
                 raise Exception("This product not exist")
-        else:
-            raise Exception("Problem connection in base")
+            else:
+                id_product = product_in_base[0]["id"]
+                if not self.SpyPostOrder.postOrderProduct(id_product):
+                    raise Exception("Problem connection in base")
