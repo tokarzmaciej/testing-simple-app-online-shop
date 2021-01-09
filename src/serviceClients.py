@@ -1,11 +1,14 @@
 from src.baseClients import ClientStorage
 from src.spyValidation import SpyValidationEmail
+from src.baseOrders import OrderStorage
 
 
 class Client:
     def __init__(self):
         self.ClientStorage = ClientStorage()
         self.validation = SpyValidationEmail()
+        self.OrderStorage = OrderStorage()
+
 
     def addClient(self, name, surname, email):
         clients = self.ClientStorage.getAllClients()
@@ -73,3 +76,5 @@ class Client:
             raise TypeError("Bad type id client")
         if len(list(filter(lambda client: client["id"] == id_client, clients))) != 1:
             raise Exception
+        else:
+            return list(filter(lambda order: order["client_id"] == id_client, self.OrderStorage.getAllOrders()))
