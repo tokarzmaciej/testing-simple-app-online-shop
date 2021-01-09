@@ -46,6 +46,19 @@ class testGetProductsInOrder(TestCase):
         self.assertEqual(result, [{'id': 6, 'name': 'racket', 'value': 75},
                                   {'id': 3, 'name': 'shoes', 'value': 39.99}])
 
+    def test_get_products_in_order_positive_verification_mock(self):
+        self.temp.ProductStorage.getAllProducts = Mock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.OrderStorage.getAllOrdersProducts = Mock()
+        self.temp.OrderStorage.getAllOrdersProducts.return_value = self.productsOrders
+
+        self.temp.OrderStorage.getAllOrders = Mock()
+        self.temp.OrderStorage.getAllOrders.return_value = self.orders
+
+        self.temp.getProductsInOrder(7)
+        self.temp.OrderStorage.getAllOrders.assert_called_once()
+
     def tearDown(self):
         self.temp = None
 
