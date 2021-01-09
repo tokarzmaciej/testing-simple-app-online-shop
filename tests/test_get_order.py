@@ -32,6 +32,20 @@ class testGetProductsInOrder(TestCase):
         result = self.temp.getProductsInOrder
         self.assertRaisesRegex(Exception, "This order not exist in data base", result, 150)
 
+    def test_get_products_in_order_positive(self):
+        self.temp.ProductStorage.getAllProducts = Mock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.OrderStorage.getAllOrdersProducts = Mock()
+        self.temp.OrderStorage.getAllOrdersProducts.return_value = self.productsOrders
+
+        self.temp.OrderStorage.getAllOrders = Mock()
+        self.temp.OrderStorage.getAllOrders.return_value = self.orders
+
+        result = self.temp.getProductsInOrder(7)
+        self.assertEqual(result, [{'id': 6, 'name': 'racket', 'value': 75},
+                                  {'id': 3, 'name': 'shoes', 'value': 39.99}])
+
     def tearDown(self):
         self.temp = None
 
