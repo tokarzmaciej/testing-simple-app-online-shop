@@ -31,6 +31,14 @@ class testDeleteOrder(TestCase):
         result = self.temp.deleteOrder(8)
         self.assertEqual(result, "Deleted order id:8")
 
+    def test_delete_order_positive_verification_mock(self):
+        self.temp.OrderStorage = FakeDeleteOrder()
+        self.temp.OrderStorage.getAllOrders = MagicMock()
+        self.temp.OrderStorage.getAllOrders.return_value = self.orders
+
+        self.temp.deleteOrder(8)
+        self.temp.OrderStorage.getAllOrders.assert_called_once()
+
     def tearDown(self):
         self.temp = None
 
