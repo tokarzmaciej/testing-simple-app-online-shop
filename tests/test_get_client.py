@@ -22,7 +22,7 @@ class testGetClientOrders(TestCase):
         instance_clients.getAllClients.return_value = self.clients
         clients.return_value = instance_clients
 
-        result = self.temp.getClientOrders
+        result = Client().getClientOrders
         self.assertRaises(Exception, result, 31)
 
     def test_get_client_orders_positive(self):
@@ -34,6 +34,16 @@ class testGetClientOrders(TestCase):
 
         result = self.temp.getClientOrders(3)
         assert_that(result).is_not_empty()
+
+    def test_get_client_orders_positive_verification_mock(self):
+        self.temp.ClientStorage.getAllClients = MagicMock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.OrderStorage.getAllOrders = Mock()
+        self.temp.OrderStorage.getAllOrders.return_value = self.orders
+
+        self.temp.getClientOrders(3)
+        self.temp.OrderStorage.getAllOrders.assert_called_once()
 
 
 if __name__ == '__main__':
