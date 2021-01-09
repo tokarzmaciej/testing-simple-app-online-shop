@@ -3,6 +3,7 @@ from unittest import TestCase, main
 from src.serviceOrders import Order
 from src.dataClients import ClientsData
 from src.dataProducts import ProductsData
+from src.spyPostOrder import SpyPostOrder
 
 
 class testAddOrder(TestCase):
@@ -38,6 +39,19 @@ class testAddOrder(TestCase):
 
         result = self.temp.addOrder
         self.assertRaisesRegex(Exception, "This product not exist", result, 3, ["ball", "trampoline"])
+
+    def test_add_order_data_base_problem_connection(self):
+        add_order = SpyPostOrder(status=False)
+        self.temp.SpyPostOrder = add_order
+
+        self.temp.ClientStorage.getAllClients = Mock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.ProductStorage.getAllProducts = MagicMock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        result = self.temp.addOrder
+        self.assertRaisesRegex(Exception, "Problem connection in base", result, 1, ["skis"])
 
     def tearDown(self):
         self.temp = None
