@@ -9,7 +9,6 @@ class Client:
         self.validation = SpyValidationEmail()
         self.OrderStorage = OrderStorage()
 
-
     def addClient(self, name, surname, email):
         clients = self.ClientStorage.getAllClients()
 
@@ -71,10 +70,12 @@ class Client:
 
     def getClientOrders(self, id_client):
         clients = self.ClientStorage.getAllClients()
+        orders = self.OrderStorage.getAllOrders()
 
         if type(id_client) != int:
             raise TypeError("Bad type id client")
-        if len(list(filter(lambda client: client["id"] == id_client, clients))) != 1:
-            raise Exception
+        if len(list(filter(lambda client: client["id"] == id_client, clients))) == 1:
+            look_orders = list(filter(lambda order: order["client_id"] == id_client, orders))
+            return look_orders
         else:
-            return list(filter(lambda order: order["client_id"] == id_client, self.OrderStorage.getAllOrders()))
+            raise Exception
