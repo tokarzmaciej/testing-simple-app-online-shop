@@ -51,8 +51,8 @@ class Product:
         products = self.ProductStorage.getAllProducts()
         if type(name) != str:
             raise TypeError("Bad type name")
-        if len(list(filter(lambda product: product["name"] == name, products))) != 1:
-            raise Exception("This product exist")
+        look_product = list(filter(lambda product: product["name"] == name, products))
+        if len(look_product) == 1:
+            return look_product
         else:
-            return list(filter(lambda product: product["name"] == name, products))
-
+            raise Exception("This product exist")
