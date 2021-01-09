@@ -69,3 +69,5 @@ class Client:
     def getClientOrders(self, id_client):
         if type(id_client) != int:
             raise TypeError("Bad type id client")
+        else:
+            raise Exception
