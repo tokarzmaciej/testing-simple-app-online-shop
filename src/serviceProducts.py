@@ -32,14 +32,18 @@ class Product:
 
     def editProduct(self, id_product, new_name=None, new_value=None):
         products = self.ProductStorage.getAllProducts()
+
         if type(id_product) != int:
             raise TypeError("Bad type id product")
+
         if type(new_name) != str and new_name is not None:
             raise TypeError("Bad type new name")
+
         if type(new_value) != int and type(new_value) != float and new_value is not None:
             raise TypeError("Bad type new value")
-        if len(list(filter(lambda product: product["id"] == id_product, products))) != 1:
-            raise Exception("This product not exist in data base")
-        else:
+
+        if len(list(filter(lambda product: product["id"] == id_product, products))) == 1:
             return self.ProductStorage.patchProduct(id_product, new_name, new_value)
+        else:
+            raise Exception("This product not exist in data base")
 
