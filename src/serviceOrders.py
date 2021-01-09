@@ -1,6 +1,7 @@
 from src.baseClients import ClientStorage
 from src.baseProducts import ProductStorage
 from src.spyPostOrder import SpyPostOrder
+from src.baseOrders import OrderStorage
 
 
 class Order:
@@ -8,6 +9,8 @@ class Order:
         self.ClientStorage = ClientStorage()
         self.ProductStorage = ProductStorage()
         self.SpyPostOrder = SpyPostOrder()
+        self.OrderStorage = OrderStorage()
+
 
     def addOrder(self, id_client, cart):
         clients = self.ClientStorage.getAllClients()
@@ -28,3 +31,4 @@ class Order:
                 id_product = product_in_base[0]["id"]
                 if not self.SpyPostOrder.postOrderProduct(id_product):
                     raise Exception("Problem connection in base")
+        return self.OrderStorage.postOrder(id_client)
