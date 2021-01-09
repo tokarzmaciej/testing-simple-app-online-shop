@@ -35,4 +35,5 @@ class Order:
         return self.OrderStorage.postOrder(id_client)
 
     def deleteOrder(self, id_order):
-        raise TypeError("Bad type id order")
+        if type(id_order) != int:
+            raise TypeError("Bad type id order")
