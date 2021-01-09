@@ -46,4 +46,4 @@ class Order:
             return self.OrderStorage.delOrder(id_order)
 
     def deleteOrderProduct(self, id_order, id_product):
-        pass
+        raise TypeError("Bad type order id")
