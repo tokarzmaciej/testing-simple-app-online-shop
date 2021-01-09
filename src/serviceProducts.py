@@ -53,3 +53,6 @@ class Product:
             raise TypeError("Bad type name")
         if len(list(filter(lambda product: product["name"] == name, products))) != 1:
             raise Exception("This product exist")
+        else:
+            return list(filter(lambda product: product["name"] == name, products))
+
