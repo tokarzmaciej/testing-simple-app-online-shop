@@ -49,6 +49,25 @@ class testEditProduct(TestCase):
             "value": 39.99
         })
 
+    def test_edit_product_new_value(self):
+        self.temp.ProductStorage.getAllProducts = Mock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.ProductStorage.patchProduct = Mock()
+        self.temp.ProductStorage.patchProduct.return_value = \
+            {
+                "id": 7,
+                "name": "skis",
+                "value": 859.99
+            }
+
+        result = self.temp.editProduct(7, None, 859.99)
+        self.assertDictEqual(result, {
+            "id": 7,
+            "name": "skis",
+            "value": 859.99
+        })
+
     def tearDown(self):
         self.temp = None
 
