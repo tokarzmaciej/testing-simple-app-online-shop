@@ -36,6 +36,16 @@ class testGetByNameProduct(TestCase):
             "value": 50
         })
 
+    @patch('src.serviceProducts.ProductStorage')
+    def test_get_product_by_name_positive_verification_mock(self, products):
+        instance_products = Mock()
+        instance_products.getAllProducts.return_value = self.products
+        products.return_value = instance_products
+
+        Product().getProductByName("ball")
+
+        Product().ProductStorage.getAllProducts.assert_called_once()
+
     def tearDown(self):
         self.temp = None
 
