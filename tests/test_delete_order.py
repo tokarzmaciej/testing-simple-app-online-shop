@@ -1,5 +1,6 @@
 from unittest.mock import *
 from unittest import TestCase, main
+from assertpy import assert_that
 from src.serviceOrders import Order
 from src.dataOrders import OrdersData
 from src.dataProductsOrders import OrdersProductsData
@@ -58,6 +59,19 @@ class testDeleteOrder(TestCase):
 
         result = self.temp.deleteOrderProduct
         self.assertRaisesRegex(Exception, "This order not exist in data base", result, 1, 5)
+
+    def test_delete_orderProduct_positive(self):
+        self.temp.OrderStorage.getAllOrdersProducts = Mock()
+        self.temp.OrderStorage.getAllOrdersProducts.return_value = self.productsOrders
+
+        self.temp.OrderStorage.delOrderProduct = Mock()
+        self.temp.OrderStorage.delOrderProduct.return_value = {
+            "product_id": 8,
+            "order_id": 4
+        }
+
+        result = self.temp.deleteOrderProduct(4, 8)
+        assert_that(result).contains_value(8, 4)
 
     def tearDown(self):
         self.temp = None
