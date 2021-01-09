@@ -1,9 +1,11 @@
 from src.baseClients import ClientStorage
+from src.baseProducts import ProductStorage
 
 
 class Order:
     def __init__(self):
         self.ClientStorage = ClientStorage()
+        self.ProductStorage = ProductStorage()
 
     def addOrder(self, id_client, cart):
         if type(id_client) != int:
@@ -12,3 +14,5 @@ class Order:
             raise Exception("This client not exist in data base")
         if type(cart) != list:
             raise TypeError("Bad type cart")
+        else:
+            raise Exception("This product not exist")
