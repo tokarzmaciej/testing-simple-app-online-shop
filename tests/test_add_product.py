@@ -1,11 +1,13 @@
 from unittest.mock import *
 from unittest import TestCase, main
 from src.serviceProducts import Product
+from src.dataProducts import ProductsData
 
 
 class testAddProduct(TestCase):
     def setUp(self):
         self.temp = Product()
+        self.products = ProductsData().products
 
     def test_add_product_bad_name(self):
         result = self.temp.addProduct
@@ -22,8 +24,25 @@ class testAddProduct(TestCase):
         result = self.temp.addProduct
         self.assertRaisesRegex(Exception, "This product exist", result, "ball", 50)
 
+    def test_add_product_positive(self):
+        self.temp.ProductStorage = FakeAddProduct()
+
+        self.temp.ProductStorage.getAllProducts = Mock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        result = self.temp.addProduct("net", 35)
+        self.assertEqual(result, "Add new product name:net value:35")
+
     def tearDown(self):
         self.temp = None
+
+
+class FakeAddProduct:
+    def __init__(self):
+        self.add = "Add new product"
+
+    def postProduct(self, name, value):
+        return self.add + " name:" + name + " value:" + str(value)
 
 
 if __name__ == '__main__':
