@@ -73,6 +73,19 @@ class testDeleteOrder(TestCase):
         result = self.temp.deleteOrderProduct(4, 8)
         assert_that(result).contains_value(8, 4)
 
+    def test_delete_orderProduct_positive_verification_mock(self):
+        self.temp.OrderStorage.getAllOrdersProducts = Mock()
+        self.temp.OrderStorage.getAllOrdersProducts.return_value = self.productsOrders
+
+        self.temp.OrderStorage.delOrderProduct = Mock()
+        self.temp.OrderStorage.delOrderProduct.return_value = {
+            "product_id": 8,
+            "order_id": 4
+        }
+
+        self.temp.deleteOrderProduct(4, 8)
+        self.temp.OrderStorage.delOrderProduct.assert_called_once_with(4, 8)
+
     def tearDown(self):
         self.temp = None
 
