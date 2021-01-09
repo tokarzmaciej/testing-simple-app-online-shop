@@ -61,3 +61,5 @@ class Order:
     def getProductsInOrder(self, id_order):
         if type(id_order) != int:
             raise TypeError("Bad type order id")
+        else:
+            raise Exception("This order not exist in data base")
