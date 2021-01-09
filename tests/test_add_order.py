@@ -1,5 +1,6 @@
 from unittest.mock import *
 from unittest import TestCase, main
+from assertpy import assert_that
 from src.serviceOrders import Order
 from src.dataClients import ClientsData
 from src.dataProducts import ProductsData
@@ -52,6 +53,19 @@ class testAddOrder(TestCase):
 
         result = self.temp.addOrder
         self.assertRaisesRegex(Exception, "Problem connection in base", result, 1, ["skis"])
+
+    def test_add_orderProduct_one_product_positive(self):
+        add_order = SpyPostOrder(status=True)
+        self.temp.SpyPostOrder = add_order
+
+        self.temp.ClientStorage.getAllClients = Mock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.ProductStorage.getAllProducts = MagicMock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.addOrder(1, ["ball"])
+        assert_that(add_order.post_order_product).is_length(1)
 
     def tearDown(self):
         self.temp = None
