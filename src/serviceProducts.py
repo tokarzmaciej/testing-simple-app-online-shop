@@ -40,3 +40,6 @@ class Product:
             raise TypeError("Bad type new value")
         if len(list(filter(lambda product: product["id"] == id_product, products))) != 1:
             raise Exception("This product not exist in data base")
+        else:
+            return self.ProductStorage.patchProduct(id_product, new_name, new_value)
+

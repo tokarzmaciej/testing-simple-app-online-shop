@@ -8,3 +8,6 @@ class ProductStorage:
 
     def delProduct(self, id_product):
         pass
+
+    def patchProduct(self, id_product, name, value):
+        pass
