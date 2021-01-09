@@ -15,3 +15,6 @@ class Product:
             raise Exception("This product exist")
         else:
             return self.ProductStorage.postProduct(name, value)
+
+    def deleteProduct(self, id_product):
+        pass
