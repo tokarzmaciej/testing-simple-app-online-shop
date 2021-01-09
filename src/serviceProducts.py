@@ -50,3 +50,5 @@ class Product:
     def getProductByName(self, name):
         if type(name) != str:
             raise TypeError("Bad type name")
+        else:
+            raise Exception("This product exist")
