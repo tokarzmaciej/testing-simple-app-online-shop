@@ -107,6 +107,29 @@ class testAddOrder(TestCase):
         self.temp.addOrder(4, ["ball", "bike", "racket"])
         self.temp.ProductStorage.getAllProducts.assert_called_once()
 
+    def test_add_order_positive(self):
+        add_order = SpyPostOrder(status=True)
+        self.temp.SpyPostOrder = add_order
+
+        self.temp.ClientStorage.getAllClients = Mock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.ProductStorage.getAllProducts = Mock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.OrderStorage.postOrder = Mock()
+        self.temp.OrderStorage.postOrder.return_value = {
+            "id": 9,
+            "client_id": 2
+        }
+
+        result = self.temp.addOrder(2, ["sled", "skis"])
+        self.assertDictEqual(result, {
+            "id": 9,
+            "client_id": 2
+        })
+        self.temp.OrderStorage.postOrder.assert_called_with(2)
+
     def tearDown(self):
         self.temp = None
 
