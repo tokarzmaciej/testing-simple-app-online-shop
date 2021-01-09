@@ -1,4 +1,5 @@
 class Order:
 
     def addOrder(self, id_client, cart):
-        raise TypeError("Bad type id")
+        if type(id_client) != int:
+            raise TypeError("Bad type id")
