@@ -1,4 +1,5 @@
 class OrderStorage:
+
     def postOrder(self, id_client):
         pass
 
@@ -6,4 +7,7 @@ class OrderStorage:
         pass
 
     def delOrder(self, id_order):
+        pass
+
+    def getAllOrdersProducts(self):
         pass
