@@ -80,6 +80,20 @@ class testAddOrder(TestCase):
         self.temp.addOrder(1, ["ball"])
         self.temp.ProductStorage.getAllProducts.assert_called_once()
 
+    def test_add_orderProduct_few_product_positive(self):
+        add_order = SpyPostOrder(status=True)
+        self.temp.SpyPostOrder = add_order
+
+        self.temp.ClientStorage.getAllClients = Mock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        self.temp.ProductStorage.getAllProducts = MagicMock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.addOrder(4, ["ball", "bike", "racket"])
+        assert_that(add_order.post_order_product) \
+            .is_length(3)
+
     def tearDown(self):
         self.temp = None
 
