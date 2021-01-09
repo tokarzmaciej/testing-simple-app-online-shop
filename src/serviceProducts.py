@@ -47,3 +47,6 @@ class Product:
         else:
             raise Exception("This product not exist in data base")
 
+    def getProductByName(self, name):
+        pass
+
