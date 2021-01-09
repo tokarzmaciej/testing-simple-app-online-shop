@@ -19,3 +19,5 @@ class Product:
     def deleteProduct(self, id_product):
         if type(id_product) != int:
             raise TypeError("Bad type id product")
+        else:
+            raise Exception("This product not exist in data base")
