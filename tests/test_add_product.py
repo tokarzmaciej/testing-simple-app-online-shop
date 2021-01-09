@@ -11,6 +11,10 @@ class testAddProduct(TestCase):
         result = self.temp.addProduct
         self.assertRaisesRegex(TypeError, "Bad type name", result, False, int)
 
+    def test_add_product_bad_value(self):
+        result = self.temp.addProduct
+        self.assertRaisesRegex(TypeError, "Bad type value", result, "kite", "22")
+
     def tearDown(self):
         self.temp = None
 
