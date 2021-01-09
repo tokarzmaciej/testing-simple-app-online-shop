@@ -33,6 +33,15 @@ class testAddProduct(TestCase):
         result = self.temp.addProduct("net", 35)
         self.assertEqual(result, "Add new product name:net value:35")
 
+    def test_add_product_positive_verification_mock(self):
+        self.temp.ProductStorage = FakeAddProduct()
+
+        self.temp.ProductStorage.getAllProducts = Mock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.addProduct("net", 35)
+        self.temp.ProductStorage.getAllProducts.assert_called_once()
+
     def tearDown(self):
         self.temp = None
 
