@@ -5,3 +5,6 @@ class ProductStorage:
 
     def postProduct(self, name, value):
         pass
+
+    def delProduct(self, id_product):
+        pass

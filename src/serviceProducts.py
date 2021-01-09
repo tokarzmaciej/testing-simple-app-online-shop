@@ -22,3 +22,6 @@ class Product:
         if len(list(
                 filter(lambda product: product["id"] == int(id_product), self.ProductStorage.getAllProducts()))) != 1:
             raise Exception("This product not exist in data base")
+        else:
+            return self.ProductStorage.delProduct(id_product)
+
