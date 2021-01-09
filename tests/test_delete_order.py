@@ -2,12 +2,14 @@ from unittest.mock import *
 from unittest import TestCase, main
 from src.serviceOrders import Order
 from src.dataOrders import OrdersData
+from src.dataProductsOrders import OrdersProductsData
 
 
 class testDeleteOrder(TestCase):
     def setUp(self):
         self.temp = Order()
         self.orders = OrdersData().orders
+        self.productsOrders = OrdersProductsData().productsOrders
 
     def test_delete_order_bad_id_order(self):
         self.temp.deleteOrder = MagicMock()
@@ -49,6 +51,13 @@ class testDeleteOrder(TestCase):
     def test_delete_orderProduct_bad_id_product(self):
         result = self.temp.deleteOrderProduct
         self.assertRaisesRegex(TypeError, "Bad type product id", result, 3, "seven")
+
+    def test_delete_orderProduct_not_exist_order(self):
+        self.temp.OrderStorage.getAllOrdersProducts = Mock()
+        self.temp.OrderStorage.getAllOrdersProducts.return_value = self.productsOrders
+
+        result = self.temp.deleteOrderProduct
+        self.assertRaisesRegex(Exception, "This order not exist in data base", result, 1, 5)
 
     def tearDown(self):
         self.temp = None
