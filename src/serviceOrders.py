@@ -58,3 +58,6 @@ class Order:
         else:
             return self.OrderStorage.delOrderProduct(id_order, id_product)
 
+    def getProductsInOrder(self, id_order):
+        pass
+
