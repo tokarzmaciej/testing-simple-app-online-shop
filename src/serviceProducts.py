@@ -48,7 +48,8 @@ class Product:
             raise Exception("This product not exist in data base")
 
     def getProductByName(self, name):
+        products = self.ProductStorage.getAllProducts()
         if type(name) != str:
             raise TypeError("Bad type name")
-        else:
+        if len(list(filter(lambda product: product["name"] == name, products))) != 1:
             raise Exception("This product exist")
