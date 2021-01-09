@@ -1,4 +1,4 @@
 class Product:
 
     def addProduct(self, name, value):
-        pass
+        raise TypeError("Bad type name")
