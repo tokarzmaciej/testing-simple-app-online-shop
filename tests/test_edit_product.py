@@ -49,7 +49,7 @@ class testEditProduct(TestCase):
             "value": 39.99
         })
 
-    def test_edit_product_new_value(self):
+    def test_edit_product_new_value_positive(self):
         self.temp.ProductStorage.getAllProducts = Mock()
         self.temp.ProductStorage.getAllProducts.return_value = self.products
 
@@ -68,7 +68,7 @@ class testEditProduct(TestCase):
             "value": 859.99
         })
 
-    def test_edit_product_new_name_and_value(self):
+    def test_edit_product_new_name_and_value_positive(self):
         self.temp.ProductStorage.getAllProducts = Mock()
         self.temp.ProductStorage.getAllProducts.return_value = self.products
 
