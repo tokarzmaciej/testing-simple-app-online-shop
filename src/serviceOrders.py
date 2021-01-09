@@ -18,3 +18,5 @@ class Order:
             product_in_base = list(filter(lambda product: product["name"] == element, self.ProductStorage.getAllProducts()))
             if not product_in_base:
                 raise Exception("This product not exist")
+        else:
+            raise Exception("Problem connection in base")
