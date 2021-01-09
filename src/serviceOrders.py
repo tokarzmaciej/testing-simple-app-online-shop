@@ -61,5 +61,5 @@ class Order:
     def getProductsInOrder(self, id_order):
         if type(id_order) != int:
             raise TypeError("Bad type order id")
-        else:
+        if len(list(filter(lambda order: order["id"] == int(id_order), self.OrderStorage.getAllOrders()))) != 1:
             raise Exception("This order not exist in data base")
