@@ -17,11 +17,10 @@ class Product:
             return self.ProductStorage.postProduct(name, value)
 
     def deleteProduct(self, id_product):
+        products = self.ProductStorage.getAllProducts()
         if type(id_product) != int:
             raise TypeError("Bad type id product")
-        if len(list(
-                filter(lambda product: product["id"] == int(id_product), self.ProductStorage.getAllProducts()))) != 1:
-            raise Exception("This product not exist in data base")
-        else:
+        if len(list(filter(lambda product: product["id"] == int(id_product), products))) == 1:
             return self.ProductStorage.delProduct(id_product)
-
+        else:
+            raise Exception("This product not exist in data base")
