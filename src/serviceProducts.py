@@ -24,3 +24,6 @@ class Product:
             return self.ProductStorage.delProduct(id_product)
         else:
             raise Exception("This product not exist in data base")
+
+    def editProduct(self, id_product, new_name=None, new_value=None):
+        pass
