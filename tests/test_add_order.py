@@ -20,6 +20,13 @@ class testAddOrder(TestCase):
         result = self.temp.addOrder
         self.assertRaisesRegex(Exception, "This client not exist in data base", result, 45, list)
 
+    def test_add_client_bad_cart(self):
+        self.temp.ClientStorage.getAllClients = Mock()
+        self.temp.ClientStorage.getAllClients.return_value = self.clients
+
+        result = self.temp.addOrder
+        self.assertRaisesRegex(TypeError, "Bad type cart", result, 5, "ball")
+
     def tearDown(self):
         self.temp = None
 
