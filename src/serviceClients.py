@@ -67,4 +67,5 @@ class Client:
             raise Exception("This client not exist in data base")
 
     def getClientOrders(self, id_client):
-        raise TypeError("Bad type id client")
+        if type(id_client) != int:
+            raise TypeError("Bad type id client")
