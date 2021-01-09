@@ -39,6 +39,20 @@ class testDeleteProduct(TestCase):
             "value": 75
         })
 
+    def test_delete_product_positive_verification_mock(self):
+        self.temp.ProductStorage.getAllProducts = MagicMock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.ProductStorage.delProduct = MagicMock()
+        self.temp.ProductStorage.delProduct.return_value = [{
+            "id": 6,
+            "name": "racket",
+            "value": 75
+        }]
+
+        self.temp.deleteProduct(6)
+        self.temp.ProductStorage.delProduct.assert_called_once_with(6)
+
     def tearDown(self):
         self.temp = None
 
