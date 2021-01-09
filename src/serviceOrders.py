@@ -63,3 +63,11 @@ class Order:
             raise TypeError("Bad type order id")
         if len(list(filter(lambda order: order["id"] == int(id_order), self.OrderStorage.getAllOrders()))) != 1:
             raise Exception("This order not exist in data base")
+        else:
+            look_products_id = list(
+                filter(lambda order_product: order_product["order_id"] == int(id_order), self.OrderStorage.getAllOrdersProducts()))
+            list_found_products = []
+            for product_id in look_products_id:
+                found_product = list(filter(lambda product: product["id"] == product_id["product_id"], self.ProductStorage.getAllProducts()))
+                list_found_products.append(found_product[0])
+            return list_found_products
