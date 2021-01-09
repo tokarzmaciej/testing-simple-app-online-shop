@@ -4,3 +4,6 @@ class OrderStorage:
 
     def getAllOrders(self):
         pass
+
+    def delOrder(self, id_order):
+        pass
