@@ -37,3 +37,5 @@ class Product:
             raise TypeError("Bad type new name")
         if type(new_value) != int and type(new_value) != float and new_value is not None:
             raise TypeError("Bad type new value")
+        else:
+            raise Exception("This product not exist in data base")
