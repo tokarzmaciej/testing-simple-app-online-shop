@@ -65,3 +65,6 @@ class Client:
                                                   new_email)
         else:
             raise Exception("This client not exist in data base")
+
+    def getClientOrders(self, id_client):
+        pass
