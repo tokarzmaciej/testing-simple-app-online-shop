@@ -53,3 +53,6 @@ class Order:
         if not list(filter(lambda order: order["order_id"] == int(id_order) and order["product_id"] == int(id_product),
                            self.OrderStorage.getAllOrdersProducts())):
             raise Exception("This order not exist in data base")
+        else:
+            return self.OrderStorage.delOrderProduct(id_order, id_product)
+

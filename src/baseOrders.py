@@ -11,3 +11,6 @@ class OrderStorage:
 
     def getAllOrdersProducts(self):
         pass
+
+    def delOrderProduct(self, id_order, id_product):
+        pass
