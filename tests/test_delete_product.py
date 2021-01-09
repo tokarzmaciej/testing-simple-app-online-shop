@@ -1,5 +1,6 @@
 from unittest.mock import *
 from unittest import TestCase, main
+from assertpy import assert_that
 from src.serviceProducts import Product
 from src.dataProducts import ProductsData
 
@@ -19,6 +20,24 @@ class testDeleteProduct(TestCase):
 
         result = self.temp.deleteProduct
         self.assertRaisesRegex(Exception, "This product not exist in data base", result, 88)
+
+    def test_delete_product_positive(self):
+        self.temp.ProductStorage.getAllProducts = MagicMock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.ProductStorage.delProduct = MagicMock()
+        self.temp.ProductStorage.delProduct.return_value = [{
+            "id": 6,
+            "name": "racket",
+            "value": 75
+        }]
+
+        result = self.temp.deleteProduct(6)
+        assert_that(result).contains_only({
+            "id": 6,
+            "name": "racket",
+            "value": 75
+        })
 
     def tearDown(self):
         self.temp = None
