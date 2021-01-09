@@ -33,3 +33,6 @@ class Order:
                 if not self.SpyPostOrder.postOrderProduct(id_product):
                     raise Exception("Problem connection in base")
         return self.OrderStorage.postOrder(id_client)
+
+    def deleteOrder(self, id_order):
+        pass
