@@ -44,3 +44,6 @@ class Order:
             raise Exception("This order not exist in data base")
         else:
             return self.OrderStorage.delOrder(id_order)
+
+    def deleteOrderProduct(self, id_order, id_product):
+        pass

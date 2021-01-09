@@ -39,6 +39,13 @@ class testDeleteOrder(TestCase):
         self.temp.deleteOrder(8)
         self.temp.OrderStorage.getAllOrders.assert_called_once()
 
+    def test_delete_orderProduct_bad_id_order(self):
+        self.temp.deleteOrder = MagicMock()
+        self.temp.deleteOrder.side_effect = TypeError("Bad type id order")
+
+        result = self.temp.deleteOrderProduct
+        self.assertRaisesRegex(TypeError, "Bad type order id", result, "two", int)
+
     def tearDown(self):
         self.temp = None
 
