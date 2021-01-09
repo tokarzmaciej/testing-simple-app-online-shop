@@ -30,3 +30,6 @@ class Product:
             raise TypeError("Bad type id product")
         if type(new_name) != str and new_name is not None:
             raise TypeError("Bad type new name")
+        else:
+            raise TypeError("Bad type new value")
+
