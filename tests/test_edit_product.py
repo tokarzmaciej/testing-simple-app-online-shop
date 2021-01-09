@@ -31,6 +31,24 @@ class testEditProduct(TestCase):
         result = self.temp.editProduct
         self.assertRaisesRegex(Exception, "This product not exist in data base", result, 20, "bike", 1500)
 
+    def test_edit_product_new_name_positive(self):
+        self.temp.ProductStorage.getAllProducts = Mock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.ProductStorage.patchProduct = Mock()
+        self.temp.ProductStorage.patchProduct.return_value = {
+            "id": 3,
+            "name": "sport shoes",
+            "value": 39.99
+        }
+
+        result = self.temp.editProduct(3, "sport shoes")
+        self.assertDictEqual(result, {
+            "id": 3,
+            "name": "sport shoes",
+            "value": 39.99
+        })
+
     def tearDown(self):
         self.temp = None
 
