@@ -12,3 +12,6 @@ class Product:
             raise TypeError("Bad type value")
         if list(filter(lambda product: product["name"] == name, self.ProductStorage.getAllProducts())):
             raise Exception("This product exist")
+        else:
+            return self.ProductStorage.postProduct(name, value)
+
