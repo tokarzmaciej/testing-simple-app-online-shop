@@ -48,8 +48,10 @@ class Order:
     def deleteOrderProduct(self, id_order, id_product):
         if type(id_order) != int:
             raise TypeError("Bad type order id")
+
         if type(id_product) != int:
             raise TypeError("Bad type product id")
+
         if not list(filter(lambda order: order["order_id"] == int(id_order) and order["product_id"] == int(id_product),
                            self.OrderStorage.getAllOrdersProducts())):
             raise Exception("This order not exist in data base")

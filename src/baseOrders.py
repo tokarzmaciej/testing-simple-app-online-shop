@@ -1,15 +1,15 @@
 class OrderStorage:
 
-    def postOrder(self, id_client):
+    def getAllOrdersProducts(self):
         pass
 
     def getAllOrders(self):
         pass
 
-    def delOrder(self, id_order):
+    def postOrder(self, id_client):
         pass
 
-    def getAllOrdersProducts(self):
+    def delOrder(self, id_order):
         pass
 
     def delOrderProduct(self, id_order, id_product):
