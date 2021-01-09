@@ -28,3 +28,5 @@ class Product:
     def editProduct(self, id_product, new_name=None, new_value=None):
         if type(id_product) != int:
             raise TypeError("Bad type id product")
+        else:
+            raise TypeError("Bad type new name")
