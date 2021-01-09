@@ -26,4 +26,4 @@ class Product:
             raise Exception("This product not exist in data base")
 
     def editProduct(self, id_product, new_name=None, new_value=None):
-        pass
+        raise TypeError("Bad type id product")
