@@ -14,5 +14,7 @@ class Order:
             raise Exception("This client not exist in data base")
         if type(cart) != list:
             raise TypeError("Bad type cart")
-        else:
-            raise Exception("This product not exist")
+        for element in cart:
+            product_in_base = list(filter(lambda product: product["name"] == element, self.ProductStorage.getAllProducts()))
+            if not product_in_base:
+                raise Exception("This product not exist")
