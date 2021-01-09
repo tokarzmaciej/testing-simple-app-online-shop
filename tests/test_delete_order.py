@@ -46,6 +46,10 @@ class testDeleteOrder(TestCase):
         result = self.temp.deleteOrderProduct
         self.assertRaisesRegex(TypeError, "Bad type order id", result, "two", int)
 
+    def test_delete_orderProduct_bad_id_product(self):
+        result = self.temp.deleteOrderProduct
+        self.assertRaisesRegex(TypeError, "Bad type product id", result, 3, "seven")
+
     def tearDown(self):
         self.temp = None
 
