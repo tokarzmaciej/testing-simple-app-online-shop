@@ -21,7 +21,7 @@ class testGetByNameProduct(TestCase):
         products.return_value = instance_products
 
         result = Product().getProductByName
-        self.assertRaisesRegex(Exception, "This product exist", result, "shoe")
+        self.assertRaisesRegex(Exception, "This product not exist", result, "shoe")
 
     @patch('src.serviceProducts.ProductStorage')
     def test_get_product_by_name_positive(self, products):

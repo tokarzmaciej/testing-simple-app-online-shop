@@ -32,4 +32,3 @@ class ClientsData:
                 "email": "monikajankowska@example.com"
             },
         ]
-

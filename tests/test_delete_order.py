@@ -44,7 +44,7 @@ class testDeleteOrder(TestCase):
 
     def test_delete_orderProduct_bad_id_order(self):
         self.temp.deleteOrder = MagicMock()
-        self.temp.deleteOrder.side_effect = TypeError("Bad type id order")
+        self.temp.deleteOrder.side_effect = TypeError("Bad type order id")
 
         result = self.temp.deleteOrderProduct
         self.assertRaisesRegex(TypeError, "Bad type order id", result, "two", int)
