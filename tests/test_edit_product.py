@@ -83,6 +83,22 @@ class testEditProduct(TestCase):
             "value": 859.99
         })
 
+    def test_edit_product_new_value_positive_verification_mock(self):
+        self.temp.ProductStorage.getAllProducts = Mock()
+        self.temp.ProductStorage.getAllProducts.return_value = self.products
+
+        self.temp.ProductStorage.patchProduct = Mock()
+        self.temp.ProductStorage.patchProduct.return_value = \
+            {
+                "id": 7,
+                "name": "skis",
+                "value": 859.99
+            }
+
+        self.temp.editProduct(7, None, 859.99)
+
+        self.temp.ProductStorage.patchProduct.assert_called_with(7, None, 859.99)
+
     def test_edit_product_new_name_and_value_positive(self):
         self.temp.ProductStorage.getAllProducts = Mock()
         self.temp.ProductStorage.getAllProducts.return_value = self.products
